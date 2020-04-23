@@ -4,29 +4,29 @@ import React, { useState, useEffect } from "react"
     The context is imported and used by individual components
     that need data
 */
-export const LocationContext = React.createContext()
+export const ProductContext = React.createContext()
 
 /*
  This component establishes what data can be used.
  */
-export const LocationProvider = (props) => {
-    const [locations, setLocations] = useState([])
+export const ProductProvider = (props) => {
+    const [products, setProducts] = useState([])
 
-    const getLocations = () => {
-        return fetch("http://localhost:8088/locations")
+    const getProducts = () => {
+        return fetch("http://localhost:8088/products")
             .then(res => res.json())
-            .then(setLocations)
+            .then(setProducts)
     }
 
-    const addLocation = location => {
-        return fetch("http://localhost:8088/locations", {
+    const addProduct = product => {
+        return fetch("http://localhost:8088/products", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(location)
+            body: JSON.stringify(product)
         })
-            .then(getLocations)
+            .then(getProducts)
     }
 
     /*
@@ -35,24 +35,24 @@ export const LocationProvider = (props) => {
     */
     useEffect(
         () => {
-            getLocations()
+            getProducts()
         },
         []
     )
 
     useEffect(
         () => {
-            console.log("****  LOCATION APPLICATION STATE CHANGED  ****")
+            console.log("****  Product APPLICATION STATE CHANGED  ****")
         },
-        [locations]
+        [products]
     )
 
 
     return (
-        <LocationContext.Provider value={{
-            locations, addLocation
+        <ProductContext.Provider value={{
+            products, addProduct
         }}>
             {props.children}
-        </LocationContext.Provider>
+        </ProductContext.Provider>
     )
 }
