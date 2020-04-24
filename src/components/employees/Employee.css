@@ -10,3 +10,7 @@
     padding: 1em;
     border: 1px solid goldenrod;
 }
+.fake_employee_link{
+    text-decoration: underline;
+    color: lightblue;
+}
